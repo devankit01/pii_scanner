@@ -8,6 +8,7 @@
 
 - **Text Processing**: Process large texts by chunking them and applying SpaCy-based Named Entity Recognition (NER) and custom regex pattern matching.
 - **Supported Formats**: Handle multiple data formats, including:
+  - List of data
   - Plain text
   - PDFs
   - JSON
