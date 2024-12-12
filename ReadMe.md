@@ -1,11 +1,8 @@
 
 # Pii Scanner Library - v0.1.7
 
-[![Version](https://img.shields.io/github/v/release/yourusername/spacy-match-scanner)](https://github.com/devankit01/pii_scanner/releases)
-[![Python Version](https://img.shields.io/pypi/pyversions/pii-scanner)](https://pypi.org/project/pii-Scanner/)
 
-
-**PIIScannerr** is a Python library designed for efficient text processing using SpaCy and custom regex pattern matching. This library is capable of processing a variety of text data formats, such as lists, plain text, PDFs, JSON, CSV, and XLSX files. It provides a streamlined API for extracting entities and patterns from large-scale text data asynchronously.
+**PIIScanner** is a Python library designed for efficient text processing using SpaCy and custom regex pattern matching. This library is capable of processing a variety of text data formats, such as lists, plain text, PDFs, JSON, CSV, and XLSX files. It provides a streamlined API for extracting entities and patterns from large-scale text data asynchronously.
 
 ## Features
 
