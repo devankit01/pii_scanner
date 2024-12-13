@@ -11,6 +11,8 @@ async def run_scan():
     # file_path = 'dummy-pii/test.json' 
     # file_path = 'dummy-pii/test.xlsx' 
     file_path = 'dummy-pii/test.pdf' 
+    # data = ['Ankit Gupta', '+91 9140562125', 'Indian', '202020201020', "DKHPG2140H"]
+    # results_async = await pii_scanner.scan(data=data, sample_size=1.0, region=Regions.IN)
     results_async = await pii_scanner.scan(file_path=file_path, sample_size=0.005, region=Regions.IN)
     
     # End the timer

@@ -5,7 +5,7 @@ with open("Lib_README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='pii-Scanner',
-    version='0.1.7',
+    version='0.1.9',
     packages=find_packages(),
     install_requires=[
         # 'unstructured==0.15.5',
@@ -15,6 +15,7 @@ setup(
         'numpy==2.0.2',
         'unstructured[docx,pptx]',
         'unstructured[pdf]',
+        'python-stdnum==1.20'
         # 'opencv-python==4.10.0.84',
         # 'pdf2image==1.17.0',
         # 'pytesseract==0.3.13',

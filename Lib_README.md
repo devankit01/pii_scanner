@@ -1,6 +1,6 @@
 # PII Scanner
 
-A library for scanning Personally Identifiable Information (PII) from text.
+A Python library designed for text processing using SpaCy and custom regex pattern matching. This library is capable of processing a variety of text data formats, such as lists, plain text, PDFs, JSON, CSV, and XLSX files
 
 ## Installation
 
@@ -25,7 +25,7 @@ async def run_scan():
 
     data = ['Ankit Gupta', '+919140562125', 'Indian']
     results_list_data = await pii_scanner.scan(data=, sample_size=0.005, region=Regions.IN)
-    results_file_data = await pii_scanner.scan(file_path=file_path, sample_size=0.005, region=Regions.IN)
+    # results_file_data = await pii_scanner.scan(file_path=file_path, sample_size=0.005, region=Regions.IN)
 
     print("Results:", results_list_data, results_list_data)
 

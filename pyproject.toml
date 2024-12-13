@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pii-Scanner"
-version = "0.1.7"  # incremented version number
-description = "A package for scanning and managing Personally Identifiable Information (PII)."
+version = "0.1.9"  # incremented version number
+description = "A Python library designed for text processing using SpaCy and custom regex pattern matching. This library is capable of processing a variety of text data formats, such as lists, plain text, PDFs, JSON, CSV, and XLSX files"
 authors = ["Ankit Gupta"]
 
 

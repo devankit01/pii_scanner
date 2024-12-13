@@ -5,6 +5,9 @@ import asyncio
 from typing import Dict, List, Union
 from pii_scanner.regex_patterns.presidio_patterns import patterns
 from presidio_analyzer.nlp_engine.spacy_nlp_engine import SpacyNlpEngine
+from pii_scanner.check_digit_warehouse.verification_required_list import VERIFY_ENTITIES
+from pii_scanner.check_digit_warehouse.checker import validate_check_digit
+from pii_scanner.check_digit_warehouse.validate_entity_type import validate_entity_check_digit
 
 logger = logging.getLogger(__name__)
 
@@ -69,37 +72,40 @@ class SpacyNERScanner:
 
             self.initialized = True
 
-    async def _process_with_analyzer_async(self, text: str) -> Dict[str, Union[str, List[Dict[str, str]]]]:
+
+    async def _process_with_analyzer(self, text: str) -> Dict[str, Union[str, List[Dict[str, str]]]]:
         """
-        Process a single text asynchronously using the Presidio Analyzer.
+        Process a single text using the Presidio Analyzer.
+        Perform country-wise validation and apply check digit function for the first entity in the analyzer results.
+        Update the existing dictionary after check digit validation.
         """
         self._initialize()
 
-        text = text.strip()
-        try:
-            analyzer_results = self.analyzer.analyze(text, language="en")
-            result = {
-                "text": text,
-                "entity_detected": [{
-                    "type": entity.entity_type,
-                    "start": entity.start,
-                    "end": entity.end,
-                    "score": entity.score  # You can include the score if needed
-                } for entity in analyzer_results]
-            }
-            return result
-        except Exception as exc:
-            self.logger.error(f"Error processing text '{text}': {exc}")
-            return {
-                "text": text,
-                "entity_detected": []
-            }
+        analyzer_results = self.analyzer.analyze(text, language="en")
+        if not analyzer_results:
+            self.logger.warning("No results returned from analyzer.")
+            return {"text": text, "entity_detected": []}
+
+        # Assuming the first result is the one to process
+        analyzer_results = analyzer_results[0]
+        entity_type = analyzer_results.entity_type
+        entity_text = text
+
+        if not entity_text:
+            self.logger.info("No entities detected in the first analyzer result.")
+            return {"text": text, "entity_detected": []}
+        
+        return await validate_entity_check_digit(text, entity_type, self.region.value)
+
+
+
+
 
     async def _process_batch_async(self, texts: List[str]) -> List[Dict[str, Union[str, List[Dict[str, str]]]]]:
         """
         Process a batch of texts concurrently using asyncio tasks.
         """
-        tasks = [self._process_with_analyzer_async(text) for text in texts]
+        tasks = [self._process_with_analyzer(text) for text in texts]
         return await asyncio.gather(*tasks)
 
     def _sample_data(self, sample_data: List[str], sample_size: Union[int, float]) -> List[str]:

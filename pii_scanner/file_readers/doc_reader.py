@@ -8,9 +8,9 @@ from pii_scanner.utils.preprocess_text_nlp import preprocess_text
 
 import nltk
 
-# Ensure you have NLTK stopwords downloaded
-nltk.download('punkt')
-nltk.download('stopwords')
+# # Ensure you have NLTK stopwords downloaded
+# nltk.download('punkt')
+# nltk.download('stopwords')
 
 # Setup logging
 logging.basicConfig(

@@ -6,6 +6,8 @@ import spacy
 from spacy.matcher import Matcher
 from typing import Dict, List, Union
 from pii_scanner.regex_patterns.matcher_patterns import patterns
+from pii_scanner.check_digit_warehouse.validate_entity_type import validate_entity_check_digit
+
 
 logger = logging.getLogger(__name__)
 
@@ -127,6 +129,37 @@ class SpacyMatchScanner:
 
         # Combine the results from all chunks
         final_results = [item for sublist in chunk_results for item in sublist]
+        
+        for entity in final_results:
+            
+            analyzer_result = entity.get("entity_detected", [])
+            text = entity.get("text", [])
+            
+            if analyzer_result and len(analyzer_result):
+                analyzer_result = analyzer_result[0]
+                entity_type = analyzer_result.get("type")
+                entity_text = text
+                
+                # Call validate_entity_check_digit function and get result
+                validation_result = await validate_entity_check_digit(text, entity_type, self.region.value)
+                
+                # Create the updated 'entity_detected' dictionary
+                updated_entity_detected = {
+                    "type": entity_type,  # This will be 'PERSON' or another type, based on the entity_type
+                    "text": entity_text
+                }
+                
+                # Update the dictionary with validation result
+                if validation_result.get("check_digit"):
+                    entity["validated"] = {
+                        "entity_detected": [updated_entity_detected],
+                        "check_digit": True
+                    }
+                else:
+                    entity["validated"] = {
+                        "entity_detected": [updated_entity_detected],
+                        "check_digit": False
+                    }
 
         end_time = time.time()
         processing_time = end_time - start_time
