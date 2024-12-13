@@ -23,7 +23,7 @@
 - **Python**: >= 3.10
 - **SpaCy**: `>=3.0`
 - **NLTK**: `>=3.6`
-- **Presidio**: `>=1.0` (Optional, if used for Presidio-based analysis)
+- **Presidio**: `>=1.0` 
 
 ### Installation
 
