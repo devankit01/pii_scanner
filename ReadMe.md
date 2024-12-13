@@ -2,7 +2,7 @@
 # Pii Scanner
 
 
-**PIIScanner** is a Python library designed for efficient text processing using SpaCy and custom regex pattern matching. This library is capable of processing a variety of text data formats, such as lists, plain text, PDFs, JSON, CSV, and XLSX files. It provides a streamlined API for extracting entities and patterns from large-scale text data asynchronously.
+**PIIScanner** is a Python library designed for text processing using SpaCy and custom regex pattern matching. This library is capable of processing a variety of text data formats, such as lists, plain text, PDFs, JSON, CSV, and XLSX files.
 
 ## Features
 
